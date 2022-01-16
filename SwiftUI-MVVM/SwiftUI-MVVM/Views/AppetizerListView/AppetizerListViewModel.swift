@@ -1,39 +1,20 @@
 //
-//  AppetizerListView.swift
+//  AppetizerListViewModel.swift
 //  SwiftUI-MVVM
 //
-//  Created by Sean Allen on 5/24/21.
+//  Created by Ahmed Fayeq on 16/01/2022.
 //
 
-import SwiftUI
+import Foundation
 
-struct AppetizerListView: View {
+final class AppetizerListViewModel: ObservableObject {
     
-    @State private var appetizers: [Appetizer] = []
-    @State private var isLoading = false
-    @State private var alertItem: AlertItem?
-        
-    var body: some View {
-        ZStack {
-            NavigationView {
-                List(appetizers, id: \.id) { appetizer in
-                    AppetizerCell(appetizer: appetizer)
-                }
-                .navigationTitle("🍟 Appetizers")
-            }
-            .onAppear { getAppetizers() }
-            
-            if isLoading { LoadingView() }
-        }
-        
-        .alert(item: $alertItem) { alertItem in
-            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-        }
-    }
+    @Published var appetizers: [Appetizer] = []
+    @Published var isLoading = false
+    @Published var alertItem: AlertItem?
     
     func getAppetizers() {
         isLoading = true
-        
         NetworkManager.shared.getAppetizers { [self] result in
             DispatchQueue.main.async {
                 isLoading = false
@@ -59,12 +40,5 @@ struct AppetizerListView: View {
                 }
             }
         }
-    }
-}
-
-
-struct AppetizerListView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppetizerListView()
     }
 }
