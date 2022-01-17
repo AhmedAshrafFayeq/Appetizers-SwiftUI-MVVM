@@ -2,7 +2,7 @@
 //  LoadingView.swift
 //  SwiftUI-MVVM
 //
-//  Created by Sean Allen on 5/24/21.
+//  Created by Ahmed Fayeq on 16/01/22.
 //
 
 import SwiftUI
